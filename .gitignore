@@ -205,3 +205,11 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+history
+logs
+screenshot
+sherpa-onnx-streaming-zipformer-bilingual-zh-en-2023-02-20
+pics
+nohup.out

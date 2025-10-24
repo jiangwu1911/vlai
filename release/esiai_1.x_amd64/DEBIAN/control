@@ -1,0 +1,8 @@
+Package: esiai
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: amd64
+Depends: libxcb-cursor0, libportaudio2, espeak
+Maintainer: jason.wu@esonicimage.com
+Description: ESI100 AI Asssistant

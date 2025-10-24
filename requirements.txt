@@ -1,0 +1,15 @@
+langchain 
+python-decouple 
+langchain-openai 
+langchain-ollama
+streamlit 
+langchain-community
+PyQt6
+pyaudio
+pyttsx3
+vosk
+markdown
+qt-material
+python-docx 
+sounddevice 
+sherpa-onnx

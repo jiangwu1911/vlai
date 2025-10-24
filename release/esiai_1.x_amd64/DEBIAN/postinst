@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if id -u esi >/dev/null 2>&1; then
+    echo "User esi already exists."
+else
+    useradd esi -m -p'$6$7ZP1aZzcZZLJJAdh$thUkIWcGZzKO0dTZCEjWxFY6fk.WVtj7epJnvGULseuacr3ptQwgJWtTrFWtsJoPqDuTvcu5bsSWEwF5UmJMa.' -s /bin/bash
+fi
+
+chown -R esi:esi /opt/esiai

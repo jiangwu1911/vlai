@@ -1,0 +1,8 @@
+{
+    "language": "zh",
+    "rag_enabled": false,
+    "key": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpblRpbWUiOiJcIjIwMjUtMDktMTYgMTc6NDA6MjMuOTI1NzU4NTEyXCIiLCJ1c2VySWQiOiIxMDAxIiwiZXhwIjoxNzU4NjIwNDIzfQ.c-wCFOXNkFN5YS7sN_9Sls_R-dIy6zYVlSzSUJH83M8iH5HxNLiEZ6gMcTkPdi8sxp7XeiAhXpeF97ue73afcux6hIxSqjbVjByYU6R5MpppiD2tTygXF_C--X0bLH9-Oq9R0LP9M3L-R_xLJgJleCh7bKN3SfAgrvAMg2wPRmg",
+    "url": "http://192.168.1.72:14580/api/v1/openai",
+    "default_model": "海豚智声7b",
+    "rag_model": "海豚智声7b"
+}

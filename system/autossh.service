@@ -1,0 +1,24 @@
+[Unit]
+Description=AutoSSH tunnel (%I)
+After=network.target
+
+[Service]
+Environment="AUTOSSH_GATETIME=0"
+EnvironmentFile=-/etc/default/autossh@%i
+ExecStart=/usr/bin/autossh \
+  -i /home/esi/esi_ai/app/system/id_rsa.jwu \
+  -M 0 -f -N  \
+  -L 7862:127.0.0.1:8000 \
+  -o ServerAliveInterval=60 \
+  -o ServerAliveCountMax=3 \
+  -o StrictHostKeyChecking=no \
+  wj@dolphin-sound.weidows.tech
+
+# 使用 simple 或 forking 取决于 autossh 的行为
+Type=simple
+User=your_username  # 替换为运行服务的用户名
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
