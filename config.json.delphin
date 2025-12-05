@@ -1,0 +1,8 @@
+{
+    "language": "zh",
+    "rag_enabled": false,
+    "key": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImNzbSIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NTIwMjM5NjIsImlzcyI6ImFpaGMiLCJzdWIiOiJzLXJkMjFhZGU3YTEzYi1leHRlcm5hbCJ9.GGZIcDQZF-hQlpXRGdlCxCds-YInBquPIvczSOsxzXdvlkyu8UbmOWB9TQRa8yUlOQADqqK14fUKCPkVMkeFkESm69UwdyG4L5DnosECZ-TWvbUB5d7Py3Voeh_MBm0Z7e2d2qPL92gFpPmcw5NKq5OupGYcpuveFeDvllkgrPPjAYIG5g9SFyHib_83wDg7QHfmVd-NI8ewQdgOuFPm-svypn4mdilIszCfX_1PMAdT4CwA0RssIVLEcoVf7wCMnrfGwluLLdY4VSqHHL0F-K2imkU4EcqxkE-tYaWuQ8bKO8HskrFkpq_z3AUt2gNNtC5-F8i1x2chW30AIdlHmA",
+    "url": "http://180.76.114.40/auth/s-rd21ade7a13b/8000/v1",
+    "default_model": "DolphinUltrasoundV19",
+    "rag_model": "DolphinUltrasoundV19"
+}

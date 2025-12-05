@@ -4,7 +4,7 @@ langchain-openai
 langchain-ollama
 streamlit 
 langchain-community
-PyQt6
+PyQt6==6.9.2
 pyaudio
 pyttsx3
 vosk

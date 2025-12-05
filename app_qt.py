@@ -21,6 +21,7 @@ from imagegallery import ImageGallery
 from chat_utils import *
 from multi_lang import LANGUAGES
 from configdialog import ConfigDialog
+from save_note_thread import SaveNoteThread
 
 # 如果想通过mitmproxy调试程序, 打开这个注释
 #os.environ["HTTP_PROXY"] = "http://127.0.0.1:8080"
@@ -73,6 +74,7 @@ class MainWindow(QWidget):
 
         self.load_config()
 
+        self.saveNoteThread = SaveNoteThread()
         self.initVoiceAssistant()
         self.initUI()
         self.llmagent = self.create_llmagent("default")
@@ -101,12 +103,13 @@ class MainWindow(QWidget):
         return agent
 
     def on_voice_command_received(self, command1):
-        if self.isActive == False and \
-            (command1.find("你好") >=0  or command1.find("您好") >= 0 or command1.find("帕斯卡") >= 0 \
-	        or command1.find("东风") >= 0 or command1.find("海豚") >= 0 or command1.find("hello") >= 0):
+        if self.isActive == False:
+            if command1.find("你好") >=0  or command1.find("您好") >= 0 or command1.find("帕斯卡") >= 0 \
+	            or command1.find("东风") >= 0 or command1.find("海豚") >= 0 or command1.find("hello") >= 0:
                 self.imageGallery.clear()
                 self.llmagent.clear_history()
                 self.txt_chat_history.clear()
+                self.question_input.clear()
 
                 self.setWindowFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
                 lang_text = LANGUAGES[self.language]
@@ -116,6 +119,8 @@ class MainWindow(QWidget):
                 self.activateWindow()
                 self.accept_voice_input = True
                 self.isActive = True
+            else:
+                return
 
         elif command1.find("退出") >= 0 or command1.find("quit") >= 0:
             self.stop_chat_session()
@@ -143,12 +148,17 @@ class MainWindow(QWidget):
         if partial != "":
             self.question_input.setText(partial)
 
+    def got_voice_command(self, command):
+        if command != "":
+            self.saveNoteThread.receive_data(command)
+
     def initVoiceAssistant(self, language='zh'):
         self.assistant = None
         #self.assistant = VoskRecognizer(language)
         self.assistant = SherpaRecognizer()
         self.assistant.callbacks.append(self.on_voice_command_received)
         self.assistant.partial_result.connect(self.on_partial_result)
+        self.assistant.command_sent.connect(self.got_voice_command)
         self.assistant.start_listening()
 
     def receivedShowCommand(self):
@@ -162,6 +172,12 @@ class MainWindow(QWidget):
             self.stop_current_thread()
         self.accept_voice_input = False
         self.hide()
+
+    def startSaving(self, filename):
+        self.saveNoteThread.start_saving(filename)
+
+    def stopSaving(self):
+        self.saveNoteThread.stop_saving()
         
     def initRestfulServer(self):
         self.restfulServer = RESTfulServer()
@@ -169,6 +185,8 @@ class MainWindow(QWidget):
         self.restfulServer.hideWindow.connect(self.receivedHideCommand)
         self.restfulServer.clearHistory.connect(self.llmagent.clear_history)
         self.restfulServer.uploadImage.connect(self.handleImageUpload)
+        self.restfulServer.startSaveNote.connect(self.startSaving)
+        self.restfulServer.stopSaveNote.connect(self.stopSaving)
 
     css = """
             QWidget {
@@ -556,7 +574,7 @@ class MainWindow(QWidget):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-n', '--without_voice_input', action='store_false', help='没有语音输入')
+    parser.add_argument('-n', '--without_voice_input', action='store_true', help='没有语音输入')
     args = parser.parse_args()
 
     app = QApplication(sys.argv)
@@ -568,7 +586,7 @@ if __name__ == '__main__':
 
     window.setWindowFlags(window.windowFlags() & ~Qt.WindowType.WindowCloseButtonHint 
         & ~Qt.WindowType.WindowMaximizeButtonHint | Qt.WindowType.WindowStaysOnTopHint | Qt.WindowType.FramelessWindowHint)
-    if args.without_voice_input == False:
+    if args.without_voice_input == True:
         window.show()
         window.isActive = True
         window.activateWindow()

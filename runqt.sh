@@ -18,6 +18,6 @@ export DELPHIN_V19_72B_API_KEY="eyJhbGciOiJSUzI1NiIsImtpZCI6ImNzbSIsInR5cCI6IkpX
 . $SCRIPT_DIR/env01/bin/activate
 
 (cd $SCRIPT_DIR
-  nohup python ./app_qt.py &
+  nohup python ./app_qt.py >> esi.log 2>&1  &
   #python ./app_qt.py -n
 )

@@ -124,6 +124,15 @@ class HTTPRequestHandler(QObject):
                         "message": "无效的内容类型"
                     })
 
+            if self.path == "/v1/start_save_note" and self.method == "POST":
+                filename = self.headers["x-filename"]
+                self.parent().startSaveNote.emit(filename)
+                response = self.create_response(200, {"message": "开始保存文本"})
+
+            if self.path == "/v1/stop_save_note" and self.method == "POST":
+                self.parent().stopSaveNote.emit()
+                response = self.create_response(200, {"message": "停止保存文本"})
+
             # 发送响应
             self.socket.write(response)
             self.request_data = b""
@@ -200,6 +209,8 @@ class RESTfulServer(QObject):
     hideWindow = Signal()
     clearHistory = Signal()
     uploadImage = Signal(str)
+    startSaveNote = Signal(str)
+    stopSaveNote = Signal()
 
     def __init__(self, parent=None, port=8133):
         super().__init__(parent)
